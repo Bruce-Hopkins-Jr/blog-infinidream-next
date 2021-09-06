@@ -1,0 +1,50 @@
+:root {
+    --one: #14C7A8;
+    --two:  #BCE6DE;
+    --three: #B7EDE4;
+    --four:  #05362D;
+    --postHeight: 180px;
+    --timing: 0.15s;
+}
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+body { background-color: white; margin: 0;}
+main {z-index: -1;}
+h1, h2, h3, h4, p, a {font-family: 'Lato', sans-serif;}
+h1 {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 58px;
+    letter-spacing: 0.05em;
+    
+    color: #000000;
+}
+h2 {
+    display: block;
+
+    font-style: normal;
+    font-weight: 900;
+    font-size: 23px; 
+    line-height: 0px;
+    letter-spacing: 0.05em;
+
+    margin-left: auto; 
+    margin-right: auto;
+}
+p {font-size: 16px; color: black; font-weight: 500;}
+h3 {    
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 0px;
+}
+h4 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: 0.05em;
+
+    color: #A2A2A2;
+}
+/* TODO, Add hover transitions */

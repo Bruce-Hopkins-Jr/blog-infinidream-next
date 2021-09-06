@@ -1,0 +1,212 @@
+.post-container {
+    position: absolute;
+    max-width: 1050px;
+    height: auto;
+    left: 488px;
+    top: 13px;   
+}
+.post-group {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-left: 40px;
+    margin-top: 35px;
+}
+.post-group h1 {
+    position: relative;
+    width: 797px;
+    height: auto;
+    max-height: 224px;
+    margin-bottom: 0px;
+}
+.post-group h4 {
+    position: relative;
+    width: 491px;
+    height: 74px;
+    margin-top: 50px;
+    margin-bottom: 0;
+}
+.info-group {display: flex;}
+.title-tags , .tag-space {margin-right: 15px;}
+.title-tags {
+    font-weight: normal;
+    letter-spacing: 0.07em;
+
+    color: #05362D;
+}
+.title-date {
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: 0.07em;
+}
+.blog-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 428px;
+    margin-top: 67px;
+    margin-bottom: 10px;
+}
+.body-group {max-width: 797px;}
+.body-group h3 {
+    height: 30px;
+    font-size: 27px; 
+    font-weight: 600;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+.body-group a {
+    color: #14C7A8;
+    font-size: 16px;
+    height: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.body-group p, .body-group img, .body-group div {margin-bottom: 40px; margin-top: 40px;}
+.body-group p {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: 0.06em;
+
+    color: #3A3A3A;
+}
+.body-group img {max-width: 505px; margin: 70px auto 70px auto;}
+@media (max-width:1360px){
+    .post-container{
+        margin-left: 16px;
+        /* width: ; */
+    }
+    .post-group {margin-left: 0;}
+    .post-group h1 {
+        width: 579px;
+        font-size: 37px;
+        line-height: 44px;
+    }
+    .post-group h4 {
+        margin-top: 33px;
+        font-size: 20px;
+        line-height: 24px;
+        width: 395px;
+    }
+    .info-group {
+        margin-top: 22px;
+        font-size: 16px;
+    }
+    .post-group {
+        width: 591px;
+    }
+    .body-group p {
+        font-size: 15.5px;
+        line-height: 160%;
+    }
+    .body-group img {
+        width: 350px;
+    }
+}
+@media (max-width:1160px){
+    .post-group {margin-left: 40px;}
+    .post-container {left:310px;}
+    .post-group h1 {
+        font-size: 35.5px;
+        width: 449px;
+        line-height: 38.4px
+    }
+    .post-group h4 {
+        margin-top: 30px;
+        font-size: 15.5px;
+        line-height: 18.6px;
+        width: 344px;
+    }
+    .post-group {
+        width: 449px;
+        margin-top: 44px;
+    }
+    .info-group p {
+        font-size: 15.5px;
+    }
+    .blog-thumbnail {height: 232px;}
+    .body-group p {
+        font-size: 15.5px;
+        line-height: 160%;
+    }
+    .body-group img {
+        width: 275px;
+    }
+}
+/* TODO Make Design better for tablet sizes */
+@media (max-width:950px) {
+    .post-container {
+        top: 56px;
+        left: 0;
+        margin-left: 0;
+        margin-inline: auto;
+        width: 100%;
+    }
+    .post-group {
+        max-width: 449px;
+        width: auto;
+        margin: 40px auto;
+    }
+    .post-group h1 {
+        max-width: 355px;
+        width: auto;
+        margin-top: 20px;
+        font-size: 28px;
+        margin-right: 30px;
+    }
+    .post-group h4 {
+        font-size: 15px;
+        max-width: 355px;
+        /* ! Might cause issues later if the image is not the correct ratio */
+        width: auto;
+        height: auto;
+    }
+    .info-group {margin-top: 5px;}
+    .info-group p {font-size: 12px;}
+
+    .post-group h1, .post-group h4, .info-group {
+        margin-inline: 20px;
+    }
+    .blog-thumbnail {
+        display: block;
+        position: relative;
+        max-width: 414px;
+        width: 100%;
+        height: auto;
+        margin: 30px auto;
+        justify-self: center;
+    }
+    .body-group {
+        margin-inline: 20px;
+    }
+    .body-group p {
+        max-width: 354px;
+        width: auto;
+
+        font-size: 14px;
+
+        justify-self: center;
+    }
+    .body-group h3 {
+        font-size: 22px; 
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .body-group div {
+        margin: 40px auto;
+        max-width: 300px;
+        width: auto;
+    }
+}
+@media (max-width:350px) {
+    .post-group h1 {
+        font-size: 26px;
+    }
+    .post-group h4 {
+        font-size: 14px;
+    }
+    .info-group p {
+        font-size: 10.5px;
+    }
+}
