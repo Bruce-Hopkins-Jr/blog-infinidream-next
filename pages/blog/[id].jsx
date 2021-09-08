@@ -1,23 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import Layout from "../../components/layout"
+import axios from 'axios'
+import Head from 'next/head'
 
 import Page from "../../components/highlighter"
 import SinglepostContext from '../../components/context/SinglepostContext'
-import blogConnnect from "../../components/backend-API/blogConnect"
 
 // Main function. 
-const Singlepost = ({id}) => {
-    var[singlePostsData, setSinglePostsData] = useState()
+const Singlepost = (props) => {
 
     // Connects to the API and inserts into the react hooks 
-    useEffect(() => {
-      (async function connectToAPI (){
-        let connect = await blogConnnect(id)
-        setSinglePostsData(connect.postData)
-
-      })()    
-    },[id])
-
     // Take away the spaces at the beginning of a String
     function cleanString(stringToBeCleaned) {
       if(stringToBeCleaned.startsWith(" ")) return stringToBeCleaned.slice(1);
@@ -28,7 +20,7 @@ const Singlepost = ({id}) => {
     function GetBody() {
         const context = React.useContext(SinglepostContext)
         if (context) {
-          return context.data.body.map(bodyString => {
+          return context.body.map(bodyString => {
 
             if (bodyString.includes("(CODE)")) {
               const splitBodyString = bodyString.split("(CODE)");
@@ -58,18 +50,17 @@ const Singlepost = ({id}) => {
           return (
               <div className="post-container"> 
                   <div className="post-group">
-                    <h1> {context.data.title}</h1>
-                    <h4>{context.data.summary}</h4>
+                    <h1> {context.title}</h1>
+                    <h4>{context.summary}</h4>
                     <span className="info-group">
-                      {context.data.tags ? context.data.tags.map(tag => {
+                      {context.tags ? context.tags.map(tag => {
                           // Only return that tag if it's not empty 
                           if (tag !== "") return <p className="title-tags"> {tag}</p>
                           return null
                       }): <p> </p>}
                       <p className="tag-space">|</p>
-                      <p className="title-date">{context.data.FormattedDateOfPost}</p>
+                      <p className="title-date">{context.FormattedDateOfPost}</p>
                     </span>
-                    <img  alt="Thumbnail" className="blog-thumbnail" src={`data:image/png;base64, ${context.data.thumbnailString}` }/>
                   
                     <div className="body-group">
                       <GetBody/>
@@ -84,7 +75,7 @@ const Singlepost = ({id}) => {
 
     
   return (
-    <SinglepostContext.Provider  value={singlePostsData ? singlePostsData : null}>
+    <SinglepostContext.Provider  value={props.content ? props.content : null}>
       <Head>
         <title>My page title</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -98,6 +89,28 @@ const Singlepost = ({id}) => {
   )
 }
 
+export async function getStaticPaths() {
+  const posts = await axios.get('http://localhost:5000/api/posts/')
+  const paths = posts.data.map((post) => ({
+    params: { id: post._id },
+  }))
 
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: false }
+}
+
+export async function getStaticProps(post) {
+  console.log(post.params.id)
+
+  try {
+    const postData = await axios.get(`http://localhost:5000/api/posts/${post.params.id}`)
+    const data =  {content:postData.data}
+    return { props: data}
+
+  } catch (error) {  
+    const data =  {content:false}
+    return { props: data}
+  }
+}
 
 export default Singlepost

@@ -1,6 +1,7 @@
 import React from 'react'
 import Layout from "../components/layout"
 import axios from 'axios'
+import Head from 'next/head'
 
 import BlogpostContext from '../components/context/BlogpostsContext'
 
@@ -33,7 +34,14 @@ function IndexPage (props) {
 
   return (
       <BlogpostContext.Provider value={props.content ? props.content : null}>
-
+        <Head> 
+            <title>Blog Infinidream</title>
+            <meta charset="UTF-8"/>
+            <meta name="description" content="Blog of Infinidream. Programming tutorials, guides, and benchmarks."/>
+            <meta name="keywords" content="Infnidream Blog Bruce Hopkins Jr"/>
+            <meta name="robots" content="index, follow"/>
+            <meta name="language" content="EN"/>
+        </Head>
         <Layout>
           <section className="posts-container">
             <div className="post-list">
@@ -50,15 +58,13 @@ function IndexPage (props) {
 }
 
 export async function getStaticProps() {
-  let postData
+
   try {
-    await axios.get('http://localhost:5000/api/posts/').then((res) => {
-        postData = res;
-    });
+    const postData = await axios.get('http://localhost:5000/api/posts/')
     const data =  {content:postData.data}
     return { props: data}
-  } catch (error) {
-      
+
+  } catch (error) {  
     const data =  {content:false}
     return { props: data}
   }
