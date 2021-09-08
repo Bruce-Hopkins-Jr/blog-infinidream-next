@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import Layout from "../components/layout"
+import Layout from "../../components/layout"
 
-import Page from "../components/highlighter"
-import SinglepostContext from '../components/context/SinglepostContext'
-import blogConnnect from "../components/backend-API/blogConnect"
+import Page from "../../components/highlighter"
+import SinglepostContext from '../../components/context/SinglepostContext'
+import blogConnnect from "../../components/backend-API/blogConnect"
 
 // Main function. 
 const Singlepost = ({id}) => {
@@ -15,9 +15,6 @@ const Singlepost = ({id}) => {
         let connect = await blogConnnect(id)
         setSinglePostsData(connect.postData)
 
-        
-        // Redirect to 404 if the page is not found.
-        // if(connect.isError) navigate("/404")
       })()    
     },[id])
 
@@ -88,8 +85,11 @@ const Singlepost = ({id}) => {
     
   return (
     <SinglepostContext.Provider  value={singlePostsData ? singlePostsData : null}>
+      <Head>
+        <title>My page title</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Layout className="blog-main">
-        {/* <SEO title={gatsbyRepoData.title ? gatsbyRepoData.title : ""}/> */}
         <GetPost/>
       </Layout>
     </SinglepostContext.Provider>
