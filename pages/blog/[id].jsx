@@ -1,10 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import Layout from "../../components/layout"
 import axios from 'axios'
 import Head from 'next/head'
 
 import Page from "../../components/highlighter"
 import SinglepostContext from '../../components/context/SinglepostContext'
+
+import Sidebar from "../../components/navbar/sidebar";
+import MobileNavbar from '../../components/navbar/mobileNavbar'
+import SidebarContext from "../../components/context/SidebarContext"
 
 // Main function. 
 const Singlepost = (props) => {
@@ -106,6 +110,11 @@ const Singlepost = (props) => {
         
       </Head>
       <Layout className="blog-main">
+
+        <SidebarContext.Provider  value={props.sidebar ? props.sidebar : null}>
+          <Sidebar/>
+          <MobileNavbar/>
+        </SidebarContext.Provider>
         <GetPost/>
       </Layout>
     </SinglepostContext.Provider>
@@ -124,12 +133,14 @@ export async function getStaticPaths() {
   return { paths, fallback: false }
 }
 
-export async function getStaticProps(post) {
-  console.log(post.params.id)
 
+
+export async function getStaticProps(post) {
+  // Get both sidebar and posts. 
   try {
     const postData = await axios.get(`http://localhost:5000/api/posts/${post.params.id}`)
-    const data =  {content:postData.data}
+    const sidebarData = await axios.get('http://localhost:5000/api/recent-posts')
+    const data =  {content:postData.data, sidebar:sidebarData.data}
     return { props: data}
 
   } catch (error) {  

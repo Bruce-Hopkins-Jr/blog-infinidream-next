@@ -3,6 +3,9 @@ import Layout from "../components/layout"
 import axios from 'axios'
 import Head from 'next/head'
 
+import Sidebar from "../components/navbar/sidebar";
+import MobileNavbar from '../components/navbar/mobileNavbar'
+import SidebarContext from "../components/context/SidebarContext"
 import BlogpostContext from '../components/context/BlogpostsContext'
 
 function IndexPage (props) {
@@ -43,6 +46,10 @@ function IndexPage (props) {
             <meta name="language" content="EN"/>
         </Head>
         <Layout>
+        <SidebarContext.Provider  value={props.sidebar ? props.sidebar : null}>
+          <Sidebar/>
+          <MobileNavbar/>
+        </SidebarContext.Provider>
           <section className="posts-container">
             <div className="post-list">
                 <CreatePosts/>          
@@ -61,7 +68,8 @@ export async function getStaticProps() {
 
   try {
     const postData = await axios.get('http://localhost:5000/api/posts/')
-    const data =  {content:postData.data}
+    const sidebarData = await axios.get('http://localhost:5000/api/recent-posts')
+    const data =  {content:postData.data, sidebar:sidebarData.data}
     return { props: data}
 
   } catch (error) {  
