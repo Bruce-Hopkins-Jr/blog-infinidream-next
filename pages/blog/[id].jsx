@@ -9,6 +9,16 @@ import SinglepostContext from '../../components/context/SinglepostContext'
 // Main function. 
 const Singlepost = (props) => {
 
+    function getKeywords(tags) {
+      let tagsString=""
+      tags.forEach(tag => {
+        console.log(tag)
+        tagsString = tagsString + tag + " "
+      });
+
+      return tagsString
+    }
+
     // Connects to the API and inserts into the react hooks 
     // Take away the spaces at the beginning of a String
     function cleanString(stringToBeCleaned) {
@@ -77,8 +87,23 @@ const Singlepost = (props) => {
   return (
     <SinglepostContext.Provider  value={props.content ? props.content : null}>
       <Head>
-        <title>My page title</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title>{ props.content ? `${props.content.title} - Infinidream`: "Infinidream"}</title>
+        <meta name="description" content={props.content.summary}/>
+        <meta name="keywords" content={props.content ? getKeywords(props.content.tags) + "Infinidream" : "infinidream"}/>
+        <meta name="robots" content="index, nofollow"/>
+        <meta name="language" content="EN"/>
+
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content="http://blog.infinidream.net/"/>
+        <meta property="og:title" content={props.content.title ? props.content.title : "Infinidream"}/>
+        <meta property="og:description" content={props.content ? props.content.summary : "Infinidream"}/>
+
+        <meta property="twitter:card" content="summary"/>
+        <meta property="twitter:url" content="http://blog.infinidream.net/"/>
+        <meta property="twitter:title" content={props.content ? props.content.title : "Infinidream"}/>
+        <meta property="twitter:description" content={props.content.summary ? props.content.summary : "A blog where I write about programming"}/>
+        <meta name="twitter:creator" content="@InfiniDream1" />
+        
       </Head>
       <Layout className="blog-main">
         <GetPost/>
