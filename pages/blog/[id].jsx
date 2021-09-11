@@ -124,7 +124,7 @@ const Singlepost = (props) => {
 }
 
 export async function getStaticPaths() {
-  const posts = await axios.get('http://localhost:5000/api/posts/')
+  const posts = await axios.get('http://server.infinidream.net/api/posts/')
   const paths = posts.data.map((post) => ({
     params: { id: post._id },
   }))
@@ -138,8 +138,8 @@ export async function getStaticPaths() {
 export async function getStaticProps(post) {
   // Get both sidebar and posts. 
   try {
-    const postData = await axios.get(`http://localhost:5000/api/posts/${post.params.id}`)
-    const sidebarData = await axios.get('http://localhost:5000/api/recent-posts')
+    const postData = await axios.get(`http://server.infinidream.net/api/posts/${post.params.id}`)
+    const sidebarData = await axios.get('http://server.infinidream.net/api/recent-posts')
     const data =  {content:postData.data, sidebar:sidebarData.data}
     return { props: data}
 

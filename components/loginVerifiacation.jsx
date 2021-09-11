@@ -14,7 +14,7 @@ function Layout (props) {
                 "Access-Control-Allow-Origin": process.env.GATSBY_BACKEND_URL
             },
         };
-        fetch('http://localhost:5000/'+ "/api/validate-login", requestOptions)
+        fetch('http://server.infinidream.net'+ "/api/validate-login", requestOptions)
             .then(response => {
                 console.log(response)
                 if (response.status === 200) setPostResponse(true)
