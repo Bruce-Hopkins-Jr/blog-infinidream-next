@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import Logo from "../../images/InFINIDREAMS.png"
+import Logo from "../assests/InFINIDREAMS.png" 
 import SidebarContext from '../context/SidebarContext'
 
 function MobileNavbar (){
@@ -31,7 +31,8 @@ function MobileNavbar (){
 
       <nav className="mobile-menu-container">
         <div className="mobile-menu-group">
-            <a className="mobile-logo-container"href="/"> <img alt="Logo" className="logo" src={Logo}/> </a>
+          {console.log(Logo.src)}
+            <a className="mobile-logo-container"href="/"> <img alt="Logo" className="logo" src={Logo.src}/> </a>
             <button  onClick={showMenu}>
               <svg className={openMenu ? "menu-svg" : "show menu-svg" }  width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M0 2.41666V4.83332H29V2.41666H0ZM0 13.2917V15.7083H29V13.2917H0ZM0 24.1667V26.5833H29V24.1667H0Z" fill="black"/>

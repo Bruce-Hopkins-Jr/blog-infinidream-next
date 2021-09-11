@@ -1,5 +1,3 @@
-import type { AppProps } from 'next/app'
-
 // styles
 import "../stylesheets/blog.css"
 import "../stylesheets/index.css"
@@ -13,7 +11,7 @@ import "../stylesheets/admin-styles/login.css"
 import "../stylesheets/admin-styles/posts.css"
 import "../stylesheets/admin-styles/uploadImages.css"
 
-function MyApp({ Component, pageProps }:any) {
+function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />
 }
 export default MyApp
