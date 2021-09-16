@@ -11,7 +11,7 @@ function Layout (props) {
             credentials: 'include',
             method: 'GET',
             headers: { 
-                "Access-Control-Allow-Origin": process.env.GATSBY_BACKEND_URL
+                "Access-Control-Allow-Origin": "http://server.infinidream.net"
             },
         };
         fetch('http://server.infinidream.net'+ "/api/validate-login", requestOptions)
