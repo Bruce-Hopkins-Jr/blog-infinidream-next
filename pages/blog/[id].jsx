@@ -33,8 +33,10 @@ const Singlepost = (props) => {
     // This will sort through the body property in the API and return different html tags depending on the 
     function GetBody() {
         const context = React.useContext(SinglepostContext)
+        let bodyPost;
         if (context) {
-          return context.body.map(bodyString => {
+          Array.isArray(context.body) ? bodyPost = context.body : bodyPost = context.body.split("\n")
+          return bodyPost.map(bodyString => {
 
             if (bodyString.includes("(CODE)")) {
               const splitBodyString = bodyString.split("(CODE)");
@@ -89,7 +91,7 @@ const Singlepost = (props) => {
 
     
   return (
-    <SinglepostContext.Provider  value={props.content ? props.content : null}>
+    <SinglepostContext.Provider  value={props.content || null}>
       <Head>
         <title>{ props.content ? `${props.content.title} - Infinidream`: "Infinidream"}</title>
         <meta name="description" content={props.content.summary}/>
@@ -124,7 +126,7 @@ const Singlepost = (props) => {
 }
 
 export async function getStaticPaths() {
-  const posts = await axios.get('http://localhost:5000/api/posts/')
+  const posts = await axios.get(process.env.BACKEND + '/api/posts/')
   const paths = posts.data.map((post) => ({
     params: { id: post._id },
   }))
@@ -138,8 +140,8 @@ export async function getStaticPaths() {
 export async function getStaticProps(post) {
   // Get both sidebar and posts. 
   try {
-    const postData = await axios.get(`http://localhost:5000/api/posts/${post.params.id}`)
-    const sidebarData = await axios.get('http://localhost:5000/api/recent-posts')
+    const postData = await axios.get(process.env.BACKEND + `/api/posts/${post.params.id}`)
+    const sidebarData = await axios.get(process.env.BACKEND + '/api/recent-posts')
     const data =  {content:postData.data, sidebar:sidebarData.data}
     return { props: data}
 

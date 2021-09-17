@@ -67,8 +67,9 @@ function IndexPage (props) {
 export async function getStaticProps() {
 
   try {
-    const postData = await axios.get('http://localhost:5000/api/posts/')
-    const sidebarData = await axios.get('http://localhost:5000/api/recent-posts')
+    console.log(process.env.BACKEND)
+    const postData = await axios.get(process.env.BACKEND + '/api/posts/')
+    const sidebarData = await axios.get(process.env.BACKEND + '/api/recent-posts')
     const data =  {content:postData.data, sidebar:sidebarData.data}
     return { props: data}
 
