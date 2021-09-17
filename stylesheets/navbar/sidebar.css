@@ -6,11 +6,8 @@
 }
 /* Main logo */
 .logo {
-    position: fixed;
     width: auto;
     height: 33px; 
-    left: 94px;
-    top: 13px;
 }
 
 /* Sidebar */
@@ -138,8 +135,6 @@
 /* Smaller screens */
 @media (max-width:1160px){
     .logo { 
-        left: 66px;
-        top: 24px;
         height: 29px;
     }
     /* Decrease the size of the components */
@@ -160,7 +155,6 @@
 }
 /* Small adjustment */
 @media (max-width: 1000px) {
-    .logo {left: 37px}
     .nav-container {width: 244px;}
 }
 /* Mobile screens */

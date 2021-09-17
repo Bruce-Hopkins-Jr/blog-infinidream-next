@@ -126,6 +126,7 @@ const Singlepost = (props) => {
 }
 
 export async function getStaticPaths() {
+
   const posts = await axios.get(process.env.BACKEND + '/api/posts/')
   const paths = posts.data.map((post) => ({
     params: { id: post._id },
