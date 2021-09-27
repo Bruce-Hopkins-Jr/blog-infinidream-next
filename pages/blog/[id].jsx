@@ -144,9 +144,11 @@ export async function getStaticPaths() {
 export async function getStaticProps(post) {
   // Get both sidebar and posts. 
   try {
+
     const postData = await axios.get(process.env.BACKEND + `/api/posts/${post.params.id}`)
     const sidebarData = await axios.get(process.env.BACKEND + '/api/recent-posts')
     const data =  {content:postData.data, sidebar:sidebarData.data}
+    console.log({ props: data})
     return { props: data}
 
   } catch (error) {  

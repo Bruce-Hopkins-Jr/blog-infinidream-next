@@ -47,7 +47,6 @@ const Form = (props) => {
 
     (async function getPropsValue (){
         if(props.data && !hasGottenProps) {
-            loopThroughBody(props.data.body);
             loopThroughTags(props.data.tags);
 
             setHasGottonProps(true)
@@ -102,7 +101,7 @@ const Form = (props) => {
             name="body" 
             cols="60" 
             rows="4"
-            defaultValue={props.value ? props.value : ""}
+            defaultValue={props.data? props.data.body : ""}
             >
             
         </textarea>
