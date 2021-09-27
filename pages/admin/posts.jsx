@@ -9,7 +9,7 @@ const Posts = () => {
     useEffect(() => {  
         (async function connectToAPI (){
         try {
-            await axios.get('http://server.infinidream.net'+ '/api/posts').then((res) => {
+            await axios.get('http://localhost:5000/'+ '/api/posts').then((res) => {
             setPostsData(res);
             });
         }
@@ -24,7 +24,7 @@ const Posts = () => {
   function GetData () {
     if (postsData.data) return postsData.data.map (data => {
         return (
-        <div className="admin-post-container"> 
+        <div className="admin-post-container" key={data._id}> 
             <div className="blogpost-container">
                 <a href={"blog/"+data._id} className="blogpost-group"> 
                 <img alt="Thumbnail" src={`data:image/png;base64, ${data.thumbnailString}` }/> 
@@ -32,7 +32,7 @@ const Posts = () => {
                     <h3>{data.title}</h3>
                     <div className="blogpost-info">
                     {data.tags ? data.tags.map(tag => {
-                        return <p className="blogposts-tags"> {tag} </p>
+                        return <p className="blogposts-tags" key={tag}> {tag} </p>
                     }): <p> </p>}
                     <p className="blogposts-date">{data.FormattedDateOfPost}</p>
                     </div>

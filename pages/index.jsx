@@ -9,7 +9,7 @@ import SidebarContext from "../components/context/SidebarContext"
 import BlogpostContext from '../components/context/BlogpostsContext'
 
 function IndexPage (props) {
-  // Maps through each blog posts. 
+  // Maps through each blog posts.
   function CreatePosts () {
     const context = React.useContext(BlogpostContext)
     if (context) return context.map (data => {
@@ -36,7 +36,7 @@ function IndexPage (props) {
   
 
   return (
-      <BlogpostContext.Provider value={props.content ? props.content : null}>
+      <BlogpostContext.Provider value={props.content || null}>
         <Head> 
             <title>Blog Infinidream</title>
             <meta charset="UTF-8"/>
@@ -46,7 +46,7 @@ function IndexPage (props) {
             <meta name="language" content="EN"/>
         </Head>
         <Layout>
-        <SidebarContext.Provider  value={props.sidebar ? props.sidebar : null}>
+        <SidebarContext.Provider  value={props.sidebar || null}>
           <Sidebar/>
           <MobileNavbar/>
         </SidebarContext.Provider>

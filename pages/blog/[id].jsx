@@ -36,8 +36,10 @@ const Singlepost = (props) => {
         let bodyPost;
         if (context) {
           Array.isArray(context.body) ? bodyPost = context.body : bodyPost = context.body.split("\n")
+          console.log(bodyPost)
           return bodyPost.map(bodyString => {
-
+            
+            // TODO change to switch statement?
             if (bodyString.includes("(CODE)")) {
               const splitBodyString = bodyString.split("(CODE)");
               return <Page language={splitBodyString[0]} code={cleanString(splitBodyString[1])}/>
@@ -52,8 +54,9 @@ const Singlepost = (props) => {
               return <a className="body-link" href={href}> {linkText} </a>
             }
             else if (bodyString.includes("/images/")) return <img alt="body" className="body-image" src={bodyString}/>
-            else if (bodyString !== "") return <p> {cleanString(bodyString)}</p>
-            return null
+            else if (bodyString !== "" && bodyString !== "\r" && bodyString !== "\n") {
+              return <p> {cleanString(bodyString)}</p>
+            }
           })
         }
         return <h2> There was a problem</h2>

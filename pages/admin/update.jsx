@@ -13,7 +13,7 @@ const UpdatePage = ({id}) => {
     (async function connectToAPI (){
     try {
         
-      await axios.get('http://server.infinidream.net'+ '/api/posts/' + id).then((res) => {
+      await axios.get('http://localhost:3000'+ '/api/posts/' + id).then((res) => {
         setPostsData(res.data);
       });
     }
