@@ -2,14 +2,14 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import LoginVerification from "../../components/loginVerifiacation"
 
-const Posts = () => {
+const Posts = (props) => {
 
     // Connects to API through axios
     var[postsData, setPostsData] = useState([])
     useEffect(() => {  
         (async function connectToAPI (){
         try {
-            await axios.get('http://server.infinidream.net'+ '/api/posts').then((res) => {
+            await axios.get( props.url + '/api/posts').then((res) => {
             setPostsData(res);
             });
         }
@@ -24,7 +24,7 @@ const Posts = () => {
   function GetData () {
     if (postsData.data) return postsData.data.map (data => {
         return (
-        <div className="admin-post-container"> 
+        <div className="admin-post-container" key={data._id}> 
             <div className="blogpost-container">
                 <a href={"blog/"+data._id} className="blogpost-group"> 
                 <img alt="Thumbnail" src={`data:image/png;base64, ${data.thumbnailString}` }/> 
@@ -32,7 +32,7 @@ const Posts = () => {
                     <h3>{data.title}</h3>
                     <div className="blogpost-info">
                     {data.tags ? data.tags.map(tag => {
-                        return <p className="blogposts-tags"> {tag} </p>
+                        return <p className="blogposts-tags" key={tag}> {tag} </p>
                     }): <p> </p>}
                     <p className="blogposts-date">{data.FormattedDateOfPost}</p>
                     </div>
@@ -41,7 +41,7 @@ const Posts = () => {
                 </a>
             </div>
             <div className="admin-post-buttons">
-              <form method="POST" action={'http://server.infinidream.net/'+ "/api/post/" + data._id + "/delete"}> <input id="delete" type="submit" value="Delete"/> </form>
+              <form method="POST" action={ props.url + "/api/post/" + data._id + "/delete"}> <input id="delete" type="submit" value="Delete"/> </form>
               <a id="update" href={"/admin/update/" + data._id}> <input id="update" type="submit" value="Update"/> </a>
             </div> 
 
@@ -65,5 +65,9 @@ const Posts = () => {
     </div>
   );
 };
+export async function getStaticProps() {
+  const url = {url: process.env.BACKEND}
+  return { props: url };
+}
 
 export default Posts

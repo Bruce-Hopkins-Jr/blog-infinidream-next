@@ -33,9 +33,13 @@ const Singlepost = (props) => {
     // This will sort through the body property in the API and return different html tags depending on the 
     function GetBody() {
         const context = React.useContext(SinglepostContext)
+        let bodyPost;
         if (context) {
-          return context.body.map(bodyString => {
-
+          Array.isArray(context.body) ? bodyPost = context.body : bodyPost = context.body.split("\n")
+          console.log(bodyPost)
+          return bodyPost.map(bodyString => {
+            
+            // TODO change to switch statement?
             if (bodyString.includes("(CODE)")) {
               const splitBodyString = bodyString.split("(CODE)");
               return <Page language={splitBodyString[0]} code={cleanString(splitBodyString[1])}/>
@@ -50,8 +54,9 @@ const Singlepost = (props) => {
               return <a className="body-link" href={href}> {linkText} </a>
             }
             else if (bodyString.includes("/images/")) return <img alt="body" className="body-image" src={bodyString}/>
-            else if (bodyString !== "") return <p> {cleanString(bodyString)}</p>
-            return null
+            else if (bodyString !== "" && bodyString !== "\r" && bodyString !== "\n") {
+              return <p> {cleanString(bodyString)}</p>
+            }
           })
         }
         return <h2> There was a problem</h2>
@@ -89,7 +94,7 @@ const Singlepost = (props) => {
 
     
   return (
-    <SinglepostContext.Provider  value={props.content ? props.content : null}>
+    <SinglepostContext.Provider  value={props.content || null}>
       <Head>
         <title>{ props.content ? `${props.content.title} - Infinidream`: "Infinidream"}</title>
         <meta name="description" content={props.content.summary}/>
@@ -124,7 +129,8 @@ const Singlepost = (props) => {
 }
 
 export async function getStaticPaths() {
-  const posts = await axios.get('http://server.infinidream.net/api/posts/')
+
+  const posts = await axios.get(process.env.BACKEND + '/api/posts/')
   const paths = posts.data.map((post) => ({
     params: { id: post._id },
   }))
@@ -138,9 +144,11 @@ export async function getStaticPaths() {
 export async function getStaticProps(post) {
   // Get both sidebar and posts. 
   try {
-    const postData = await axios.get(`http://server.infinidream.net/api/posts/${post.params.id}`)
-    const sidebarData = await axios.get('http://server.infinidream.net/api/recent-posts')
+
+    const postData = await axios.get(process.env.BACKEND + `/api/posts/${post.params.id}`)
+    const sidebarData = await axios.get(process.env.BACKEND + '/api/recent-posts')
     const data =  {content:postData.data, sidebar:sidebarData.data}
+    console.log({ props: data})
     return { props: data}
 
   } catch (error) {  

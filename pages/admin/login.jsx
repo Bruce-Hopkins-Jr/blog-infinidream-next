@@ -1,8 +1,8 @@
 import React from 'react'
 
-const LoginPage = () => {
+const LoginPage = (props) => {
   return (
-    <form action= {'http://server.infinidream.net'+ "/api/login/"} method="POST">
+    <form action= {props.url + "/api/login/"} method="POST">
         <label htmlFor="user">First name:</label>
         <input type="text" id="user" name="user"/> <br/>
         <label htmlFor="password">Last name:</label>
@@ -10,6 +10,10 @@ const LoginPage = () => {
         <input type="submit" value="Submit"></input>
     </form> 
   )
+}
+export async function getStaticProps() {
+  const url = {url: process.env.BACKEND}
+  return { props: url };
 }
 
 export default LoginPage

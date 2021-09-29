@@ -9,7 +9,7 @@ import SidebarContext from "../components/context/SidebarContext"
 import BlogpostContext from '../components/context/BlogpostsContext'
 
 function IndexPage (props) {
-  // Maps through each blog posts. 
+  // Maps through each blog posts.
   function CreatePosts () {
     const context = React.useContext(BlogpostContext)
     if (context) return context.map (data => {
@@ -36,7 +36,7 @@ function IndexPage (props) {
   
 
   return (
-      <BlogpostContext.Provider value={props.content ? props.content : null}>
+      <BlogpostContext.Provider value={props.content || null}>
         <Head> 
             <title>Blog Infinidream</title>
             <meta charset="UTF-8"/>
@@ -46,7 +46,7 @@ function IndexPage (props) {
             <meta name="language" content="EN"/>
         </Head>
         <Layout>
-        <SidebarContext.Provider  value={props.sidebar ? props.sidebar : null}>
+        <SidebarContext.Provider  value={props.sidebar || null}>
           <Sidebar/>
           <MobileNavbar/>
         </SidebarContext.Provider>
@@ -67,8 +67,9 @@ function IndexPage (props) {
 export async function getStaticProps() {
 
   try {
-    const postData = await axios.get('http://server.infinidream.net/api/posts/')
-    const sidebarData = await axios.get('http://server.infinidream.net/api/recent-posts')
+    const postData = await axios.get(process.env.BACKEND + '/api/posts/')
+    const sidebarData = await axios.get(process.env.BACKEND + '/api/recent-posts')
+
     const data =  {content:postData.data, sidebar:sidebarData.data}
     return { props: data}
 

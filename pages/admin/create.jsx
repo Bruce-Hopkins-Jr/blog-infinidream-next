@@ -2,14 +2,17 @@ import React from "react";
 import CreatePageForm from "../../components/createPageForm"
 import LoginVerifiacation from '../../components/loginVerifiacation'
 
-
-const Form = () => {
+// TODO, add .env and pass the url to LoginVerifiacation
+const Form = (props) => {
   return (
     <LoginVerifiacation>
-
-      <CreatePageForm url={'http://server.infinidream.net'+ "/api/post/create"}/>
+      <CreatePageForm url={props.url + "/api/post/create"}/>
     </LoginVerifiacation>
   );
 };
 
+export async function getStaticProps() {
+  const url = {url: process.env.BACKEND}
+  return { props: url };
+}
 export default Form
