@@ -12,7 +12,7 @@
 
 /* Sidebar */
 .nav-container {
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     position: relative;
     width: 461px;
     height: 100%;
