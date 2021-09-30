@@ -11,10 +11,10 @@ function Layout (props) {
             credentials: 'include',
             method: 'GET',
             headers: { 
-                "Access-Control-Allow-Origin": "http://server.infinidream.net"
+                "Access-Control-Allow-Origin": "http://localhost:5000"
             },
         };
-        fetch('http://server.infinidream.net'+ "/api/validate-login", requestOptions)
+        fetch('http://localhost:5000'+ "/api/validate-login", requestOptions)
             .then(response => {
                 console.log(response)
                 if (response.status === 200) setPostResponse(true)

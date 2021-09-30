@@ -25,8 +25,8 @@ function IndexPage (props) {
                   }): <p> </p>}
                   <p className="blogposts-date">{data.FormattedDateOfPost}</p>
                 </div>
-                <p className="read-more"> Read more... </p>
               </div>
+              <p className="read-more"> Read more... </p>
             </a>
           </div>
         )
