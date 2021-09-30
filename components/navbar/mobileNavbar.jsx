@@ -31,7 +31,6 @@ function MobileNavbar (){
 
       <nav className="mobile-menu-container">
         <div className="mobile-menu-group">
-          {console.log(Logo.src)}
             <a className="mobile-logo-container"href="/"> <img alt="Logo" className="logo" src={Logo.src}/> </a>
             <button  onClick={showMenu}>
               <svg className={openMenu ? "menu-svg" : "show menu-svg" }  width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
