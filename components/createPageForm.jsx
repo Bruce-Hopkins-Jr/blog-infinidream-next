@@ -30,21 +30,6 @@ const Form = (props) => {
         </textarea>
     };
     
-    // Takes the values from the variable inputValue and adds it to the bodyData state
-    function loopThroughBody (inputList) {
-        let valuesList = []
-        valuesList.push(inputList.map (input => { 
-            return (
-                <Input 
-                    value={input} 
-                    key={valuesList.length} 
-                    _id={valuesList.length} 
-                />
-            )
-        })
-        )
-        setBodyData(valuesList);
-    }
     function loopThroughTags (inputList) {
         let tagsValuesList = [];
         tagsValuesList.push ( inputList.map (input => {
@@ -62,7 +47,6 @@ const Form = (props) => {
 
     (async function getPropsValue (){
         if(props.data && !hasGottenProps) {
-            loopThroughBody(props.data.body);
             loopThroughTags(props.data.tags);
 
             setHasGottonProps(true)
@@ -73,27 +57,24 @@ const Form = (props) => {
         setTagsData(tagsData.concat(<Tags key={tagsData.length} _id={tagsData.length} />));
     };
 
-    const onAddBtnClick = event => {
-        setBodyData(bodyData.concat(<Input key={bodyData.length} _id={bodyData.length}/>));
-    };
 
   return (
     <div>
       <form 
         className="admin-create-form" 
         method="POST" 
-        enctype="multipart/form-data"
+        encType="multipart/form-data"
         action={ props.url ? props.url : "/"}
         >
 
-        <label htmlFor="thumbnail">Thumbnail:</label>
+        {/* <label htmlFor="thumbnail">Thumbnail:</label>
         <input 
         className="thumbnail-input" 
             type="file" 
             id="image" 
             name="image" 
             />
-        <br/>
+        <br/> */}
 
         <label htmlFor="title">title:</label>
         <input 
@@ -114,11 +95,16 @@ const Form = (props) => {
         <br/><br/>
 
         <label htmlFor="body">body:</label>
-        <div className="body-group">
-            {bodyData}
-            {/* {props.data ? bodyData : <Input/>} */}
-        </div>
-        <button type="button" onClick={onAddBtnClick}>Add input</button>
+        <textarea 
+            className="body-input" 
+            id={props._id} 
+            name="body" 
+            cols="60" 
+            rows="4"
+            defaultValue={props.data? props.data.body : ""}
+            >
+            
+        </textarea>
 
         <br/><br/>
         
