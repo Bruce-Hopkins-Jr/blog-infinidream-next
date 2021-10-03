@@ -15,8 +15,4 @@ export async function getStaticProps() {
   const url = {url: process.env.BACKEND}
   return { props: url };
 }
-<<<<<<< HEAD
 export default Form
-=======
-export default Form
->>>>>>> 9ce1eef8da080438492db63ab3078aa0f7ccbb88
