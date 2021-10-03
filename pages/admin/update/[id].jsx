@@ -7,7 +7,9 @@ import CreatePageForm from "../../../components/createPageForm"
 
 const UpdatePage = (props) => {
   return (
-    <LoginVerifiacation>
+
+    <LoginVerifiacation url={props.url}>
+
       <CreatePageForm url={props.url + "/api/post/" + props.id + "/update"} data={props.data} id={props.id}/>
     </LoginVerifiacation>
   );
@@ -25,9 +27,7 @@ export async function getStaticPaths() {
 
 
 export async function getStaticProps(post) {
-  const url = {url: process.env.BACKEND}
   const data = await axios.get( process.env.BACKEND + '/api/posts/' + post.params.id)
-  const id = {id:post.params.id}
   const props = {
     url: process.env.BACKEND,
     id: post.params.id,

@@ -59,7 +59,7 @@ const Posts = (props) => {
 
   return (
     <div>
-      <LoginVerification>
+      <LoginVerification url={props.url}>
         <GetData/>
       </LoginVerification>
     </div>

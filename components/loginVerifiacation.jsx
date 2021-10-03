@@ -5,16 +5,17 @@ import React, {useState, useEffect} from "react"
 function Layout (props) {
 
     var[postResponse, setPostResponse] = useState()
+    
     useEffect(() => {  
         const requestOptions = {
             // mode: 'cors', 
             credentials: 'include',
             method: 'GET',
             headers: { 
-                "Access-Control-Allow-Origin": "http://server.infinidream.net"
+                "Access-Control-Allow-Origin": props.url
             },
         };
-        fetch('http://server.infinidream.net'+ "/api/validate-login", requestOptions)
+        fetch(props.url+ "/api/validate-login", requestOptions)
             .then(response => {
                 console.log(response)
                 if (response.status === 200) setPostResponse(true)
