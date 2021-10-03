@@ -33,7 +33,6 @@ export async function getStaticProps(post) {
     id: post.params.id,
     data: data.data
   }
-  console.log({ props: props})
   return { props: props}
 }
 
