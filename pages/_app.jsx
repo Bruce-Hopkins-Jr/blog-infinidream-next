@@ -11,6 +11,7 @@ import "../stylesheets/admin-styles/login.css"
 import "../stylesheets/admin-styles/posts.css"
 import "../stylesheets/admin-styles/uploadImages.css"
 
+
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />
 }
