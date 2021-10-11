@@ -14,23 +14,21 @@ import "../stylesheets/admin-styles/uploadImages.css"
 
 import { useRouter } from 'next/router';
 import React, {useEffect} from 'react'
+import * as ga from '../lib/gtag'
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
-  const handleRouteChange = (url) => {
-    window.gtag('config', 'UA-190645408-2', {
-      page_path: url,
-    });
-  };
 
   useEffect(() => {
+    const handleRouteChange = (url) => {
+      ga.pageview(url)
+    };
     router.events.on('routeChangeComplete', handleRouteChange);
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [router.events]);
-
 
   return <Component {...pageProps} />
 }
