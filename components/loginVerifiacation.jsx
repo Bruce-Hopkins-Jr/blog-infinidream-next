@@ -17,7 +17,6 @@ function Layout (props) {
         };
         fetch(props.url+ "/api/validate-login", requestOptions)
             .then(response => {
-                console.log(response)
                 if (response.status === 200) setPostResponse(true)
                 else  {
                     console.log(response.status)

@@ -16,7 +16,6 @@ const Singlepost = (props) => {
     function getKeywords(tags) {
       let tagsString=""
       tags.forEach(tag => {
-        console.log(tag)
         tagsString = tagsString + tag + " "
       });
 
@@ -36,7 +35,6 @@ const Singlepost = (props) => {
         let bodyPost;
         if (context) {
           Array.isArray(context.body) ? bodyPost = context.body : bodyPost = context.body.split("\n")
-          console.log(bodyPost)
           return bodyPost.map(bodyString => {
             
             // TODO change to switch statement?
@@ -148,7 +146,6 @@ export async function getStaticProps(post) {
     const postData = await axios.get(process.env.BACKEND + `/api/posts/${post.params.id}`)
     const sidebarData = await axios.get(process.env.BACKEND + '/api/recent-posts')
     const data =  {content:postData.data, sidebar:sidebarData.data}
-    console.log({ props: data})
     return { props: data}
 
   } catch (error) {  
