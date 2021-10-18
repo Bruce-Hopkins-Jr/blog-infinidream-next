@@ -1,0 +1,26 @@
+.footer-container {
+    background-color: #282828;
+    padding-top: 1px;
+}
+.icon-group {
+    position: relative;
+    display: grid;
+    justify-content: center;
+
+    grid-gap: 50px;
+    grid-template-columns: repeat( 3, auto);
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.icon-group img  {
+    height: auto;
+    width: 34px;
+}
+   
+.footer-container h2 {
+    color: white;
+    margin:30px auto 0 auto;
+    text-align: center;
+    line-height: normal;
+    height: 50px;
+}

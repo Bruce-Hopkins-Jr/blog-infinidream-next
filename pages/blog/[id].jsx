@@ -6,6 +6,7 @@ import Head from 'next/head'
 import Page from "../../components/highlighter"
 import SinglepostContext from '../../components/context/SinglepostContext'
 
+import Footer from '../../components/footer/footer'
 import Sidebar from "../../components/navbar/sidebar";
 import MobileNavbar from '../../components/navbar/mobileNavbar'
 import SidebarContext from "../../components/context/SidebarContext"
@@ -119,6 +120,7 @@ const Singlepost = (props) => {
           <MobileNavbar/>
         </SidebarContext.Provider>
         <GetPost/>
+        <Footer/>
       </Layout>
     </SinglepostContext.Provider>
 

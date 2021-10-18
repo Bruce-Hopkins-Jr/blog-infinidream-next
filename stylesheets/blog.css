@@ -1,9 +1,9 @@
 .post-container {
-    position: absolute;
-    max-width: 1050px;
-    height: auto;
-    left: 488px;
-    top: 13px;   
+    left: 0;
+    margin-left: 0;
+    margin-inline: auto;
+    width: 100%;
+    position: relative;
 }
 .post-group {
     position: relative;
@@ -138,7 +138,6 @@
 /* TODO Make Design better for tablet sizes */
 @media (max-width:950px) {
     .post-container {
-        top: 56px;
         left: 0;
         margin-left: 0;
         margin-inline: auto;
