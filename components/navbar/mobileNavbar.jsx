@@ -22,17 +22,19 @@ function MobileNavbar (){
 
   // If the menu is closed, open it. And vice versa.
   function showMenu () {
-    if (openMenu) setOpenMenu(false)
-    else setOpenMenu(true)
+    setOpenMenu(!openMenu)
+  }
+  function dismissMenu() {
+    if(openMenu) setOpenMenu(false)
   }
 
   return (
     <div>
 
-      <nav className="mobile-menu-container">
+      <nav onClick={dismissMenu} className="mobile-menu-container">
         <div className="mobile-menu-group">
             <a className="mobile-logo-container"href="/"> <img alt="Logo" className="logo" src={Logo.src}/> </a>
-            <button  onClick={showMenu}>
+            <button onClick={showMenu}>
               <svg className={openMenu ? "menu-svg" : "show menu-svg" }  width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M0 2.41666V4.83332H29V2.41666H0ZM0 13.2917V15.7083H29V13.2917H0ZM0 24.1667V26.5833H29V24.1667H0Z" fill="black"/>
               </svg>
@@ -45,7 +47,7 @@ function MobileNavbar (){
         </div>
       </nav>
 
-      <div className={openMenu ? "show cover" : "cover" }>
+      <div onClick={dismissMenu} className={openMenu ? "show cover" : "cover" }>
         <div className="side-menu-container">
           <div className={"side-menu-group"}>
 
