@@ -115,12 +115,13 @@ const Singlepost = (props) => {
       </Head>
       <Layout className="blog-main">
 
-        <SidebarContext.Provider  value={props.sidebar ? props.sidebar : null}>
+        <SidebarContext.Provider  value={props.sidebar || null}>
           <Sidebar/>
           <MobileNavbar/>
         </SidebarContext.Provider>
         <GetPost/>
-        <Footer/>
+        
+        <Footer value={props.content ? props.content.previousPost : null}/>
       </Layout>
     </SinglepostContext.Provider>
 
@@ -145,9 +146,27 @@ export async function getStaticProps(post) {
   // Get both sidebar and posts. 
   try {
 
-    const postData = await axios.get(process.env.BACKEND + `/api/posts/${post.params.id}`)
-    const sidebarData = await axios.get(process.env.BACKEND + '/api/recent-posts')
-    const data =  {content:postData.data, sidebar:sidebarData.data}
+    const postData = await axios.get(process.env.BACKEND + `/api/posts/${post.params.id}`),
+    previousPost = await axios.get(process.env.BACKEND + `/api/previous-post/${post.params.id}`),
+    fullPost = {
+      tags: postData.data.tags,
+      _id: postData.data._id,
+      title: postData.data.tile,
+      summary: postData.data.summary,
+      body: postData.data.body,
+      date_of_post: postData.data.date_of_post,
+      url: postData.data.url,
+      blogPostUrl: postData.data.blogPostUrl,
+      thumbnailString: postData.data.thumbnailString,
+      FormattedDateOfPost: postData.data.FormattedDateOfPost,
+      id: postData.data.id,
+      previousPost: {
+          title: previousPost.title,
+          url: previousPost.url
+      }
+    }, // TODO, I'm making this variable to prepare for when I add previous post to the post
+    sidebarData = await axios.get(process.env.BACKEND + '/api/recent-posts'),
+    data =  {content:fullPost, sidebar:sidebarData.data}
     return { props: data}
 
   } catch (error) {  
