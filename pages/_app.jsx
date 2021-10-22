@@ -11,6 +11,7 @@ import "../stylesheets/admin-styles/login.css"
 import "../stylesheets/admin-styles/posts.css"
 import "../stylesheets/admin-styles/uploadImages.css"
 
+import "../stylesheets/footer/footer.css"
 
 import { useRouter } from 'next/router';
 import React, {useEffect} from 'react'

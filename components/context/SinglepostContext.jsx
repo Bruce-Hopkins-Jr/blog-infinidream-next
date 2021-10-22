@@ -8,6 +8,11 @@ const SinglepostConetext = React.createContext([
       "tags": [],
       "FormattedDateOfPost": "",
       "thumbnailString": "",
+      "previousPost": {
+        "title": "",
+        "url":  "",
+        "_id": ""
+      }
     }
   ]);
 
