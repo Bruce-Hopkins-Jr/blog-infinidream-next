@@ -10,7 +10,8 @@ const SinglepostConetext = React.createContext([
       "thumbnailString": "",
       "previousPost": {
         "title": "",
-        "url":  ""
+        "url":  "",
+        "_id": ""
       }
     }
   ]);

@@ -4,12 +4,13 @@ import axios from 'axios'
 import Head from 'next/head'
 
 import Page from "../../components/highlighter"
-import SinglepostContext from '../../components/context/SinglepostContext'
 
 import Footer from '../../components/footer/footer'
 import Sidebar from "../../components/navbar/sidebar";
 import MobileNavbar from '../../components/navbar/mobileNavbar'
+
 import SidebarContext from "../../components/context/SidebarContext"
+import SinglepostContext from '../../components/context/SinglepostContext'
 
 // Main function. 
 const Singlepost = (props) => {
@@ -121,7 +122,7 @@ const Singlepost = (props) => {
         </SidebarContext.Provider>
         <GetPost/>
         
-        <Footer value={props.content ? props.content.previousPost : null}/>
+        <Footer />
       </Layout>
     </SinglepostContext.Provider>
 
@@ -151,7 +152,7 @@ export async function getStaticProps(post) {
     fullPost = {
       tags: postData.data.tags,
       _id: postData.data._id,
-      title: postData.data.tile,
+      title: postData.data.title,
       summary: postData.data.summary,
       body: postData.data.body,
       date_of_post: postData.data.date_of_post,
@@ -160,10 +161,11 @@ export async function getStaticProps(post) {
       thumbnailString: postData.data.thumbnailString,
       FormattedDateOfPost: postData.data.FormattedDateOfPost,
       id: postData.data.id,
-      previousPost: {
-          title: previousPost.title,
-          url: previousPost.url
-      }
+      previousPost: previousPost.data.title ? {
+          title: previousPost.data.title,
+          url: previousPost.data.url,
+          _id: previousPost.data._id
+      } : null
     }, // TODO, I'm making this variable to prepare for when I add previous post to the post
     sidebarData = await axios.get(process.env.BACKEND + '/api/recent-posts'),
     data =  {content:fullPost, sidebar:sidebarData.data}
