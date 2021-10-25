@@ -1,5 +1,13 @@
 # Blog Infinidream Next
 
+## Description
+
+The frontend for the site: http://blog.infinidream.net/
+
+The backend repo: https://github.com/Bruce-Hopkins-Jr/Blog_infinidream
+
+This Frontend was made with React and Next.js. Its primary purpose is to be used along with the Next.js backend as a personal blog.
+
 ## Versions
 
 ### V-1.3.1
