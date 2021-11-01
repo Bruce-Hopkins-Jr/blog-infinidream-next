@@ -26,10 +26,13 @@ const Singlepost = (props) => {
 
     // Connects to the API and inserts into the react hooks 
     // Take away the spaces at the beginning of a String
-    function cleanString(stringToBeCleaned) {
-      if(stringToBeCleaned.startsWith(" ")) return stringToBeCleaned.slice(1);
-      return stringToBeCleaned;
-    }
+
+    const processBody = (stringToBeCleaned) => stringToBeCleaned.startsWith(" ") ? 
+      stringToBeCleaned.slice(1) :
+      stringToBeCleaned
+    
+
+
 
     // This will sort through the body property in the API and return different html tags depending on the 
     function GetBody() {
@@ -55,7 +58,7 @@ const Singlepost = (props) => {
             }
             else if (bodyString.includes("/images/")) return <img alt="body" className="body-image" src={bodyString}/>
             else if (bodyString !== "" && bodyString !== "\r" && bodyString !== "\n") {
-              return <p> {cleanString(bodyString)}</p>
+              return  <p dangerouslySetInnerHTML={{ __html: processBody(bodyString)}}/>
             }
           })
         }
