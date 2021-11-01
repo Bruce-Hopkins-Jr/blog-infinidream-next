@@ -11,7 +11,7 @@ function Sidebar (){
     const context = React.useContext(SidebarContext)
     if (context) {
       if (context.length > 0) {
-        return context.reverse().map (selectedLink => {
+        return context.map (selectedLink => {
           return <div> <a href={"/blog/"+selectedLink._id}> {selectedLink.title} </a> </div>
         })
       }
