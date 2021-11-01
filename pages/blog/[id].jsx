@@ -4,11 +4,13 @@ import axios from 'axios'
 import Head from 'next/head'
 
 import Page from "../../components/highlighter"
-import SinglepostContext from '../../components/context/SinglepostContext'
 
+import Footer from '../../components/footer/footer'
 import Sidebar from "../../components/navbar/sidebar";
 import MobileNavbar from '../../components/navbar/mobileNavbar'
+
 import SidebarContext from "../../components/context/SidebarContext"
+import SinglepostContext from '../../components/context/SinglepostContext'
 
 // Main function. 
 const Singlepost = (props) => {
@@ -24,10 +26,13 @@ const Singlepost = (props) => {
 
     // Connects to the API and inserts into the react hooks 
     // Take away the spaces at the beginning of a String
-    function cleanString(stringToBeCleaned) {
-      if(stringToBeCleaned.startsWith(" ")) return stringToBeCleaned.slice(1);
-      return stringToBeCleaned;
-    }
+
+    const processBody = (stringToBeCleaned) => stringToBeCleaned.startsWith(" ") ? 
+      stringToBeCleaned.slice(1) :
+      stringToBeCleaned
+    
+
+
 
     // This will sort through the body property in the API and return different html tags depending on the 
     function GetBody() {
@@ -53,7 +58,7 @@ const Singlepost = (props) => {
             }
             else if (bodyString.includes("/images/")) return <img alt="body" className="body-image" src={bodyString}/>
             else if (bodyString !== "" && bodyString !== "\r" && bodyString !== "\n") {
-              return <p> {cleanString(bodyString)}</p>
+              return  <p dangerouslySetInnerHTML={{ __html: processBody(bodyString)}}/>
             }
           })
         }
@@ -114,11 +119,13 @@ const Singlepost = (props) => {
       </Head>
       <Layout className="blog-main">
 
-        <SidebarContext.Provider  value={props.sidebar ? props.sidebar : null}>
+        <SidebarContext.Provider  value={props.sidebar || null}>
           <Sidebar/>
           <MobileNavbar/>
         </SidebarContext.Provider>
         <GetPost/>
+        
+        <Footer />
       </Layout>
     </SinglepostContext.Provider>
 
@@ -143,9 +150,28 @@ export async function getStaticProps(post) {
   // Get both sidebar and posts. 
   try {
 
-    const postData = await axios.get(process.env.BACKEND + `/api/posts/${post.params.id}`)
-    const sidebarData = await axios.get(process.env.BACKEND + '/api/recent-posts')
-    const data =  {content:postData.data, sidebar:sidebarData.data}
+    const postData = await axios.get(process.env.BACKEND + `/api/posts/${post.params.id}`),
+    previousPost = await axios.get(process.env.BACKEND + `/api/previous-post/${post.params.id}`),
+    fullPost = {
+      tags: postData.data.tags,
+      _id: postData.data._id,
+      title: postData.data.title,
+      summary: postData.data.summary,
+      body: postData.data.body,
+      date_of_post: postData.data.date_of_post,
+      url: postData.data.url,
+      blogPostUrl: postData.data.blogPostUrl,
+      thumbnailString: postData.data.thumbnailString,
+      FormattedDateOfPost: postData.data.FormattedDateOfPost,
+      id: postData.data.id,
+      previousPost: previousPost.data.title ? {
+          title: previousPost.data.title,
+          url: previousPost.data.url,
+          _id: previousPost.data._id
+      } : null
+    }, // TODO, I'm making this variable to prepare for when I add previous post to the post
+    sidebarData = await axios.get(process.env.BACKEND + '/api/recent-posts'),
+    data =  {content:fullPost, sidebar:sidebarData.data}
     return { props: data}
 
   } catch (error) {  
